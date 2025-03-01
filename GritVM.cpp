@@ -7,7 +7,14 @@
 // implement instructions below
 // dont forget to add their declaration to the header file
 
-void GritVM::ADDMEM(long &a, long X) {
+GritVM::GritVM()
+{
+    // constructor
+    gritStatus = STATUS::WAITING;
+    accumulator = 0;
+    currInstruct = instructMem.begin();
+}
+
 void GritVM::ADDMEM(long &a, long X)
 {
     a += dataMem[X];
@@ -49,4 +56,17 @@ void GritVM::NOOP()
 void GritVM::HALT()
 {
     gritStatus = STATUS::HALTED;
+}
+
+STATUS GritVM::load(const std::string filename, const std::vector<long> &initialMemory)
+{
+    std::fstream inputFile;
+    inputFile.open(filename);
+    std::string line;
+    while (getline(inputFile, line))
+    {
+        GVMHelper::parseInstruction(line);
+    }
+    inputFile.close();
+    return gritStatus;
 }
