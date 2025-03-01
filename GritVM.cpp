@@ -140,34 +140,41 @@ void GritVM::CHECKMEM(long X)
 
 STATUS GritVM::load(const std::string filename, const std::vector<long> &initialMemory)
 {
-    std::fstream inputFile;
-    inputFile.open(filename);
-    std::string line;
-    while (getline(inputFile, line))
-    {
-        if (line.empty() || line[0] == '#')
-        {
-            continue;
-        }
-        instructMem.push_back(GVMHelper::parseInstruction(line));
+    if (filename == ""){
+        throw STATUS::ERRORED;
     }
-    inputFile.close();
+    try {
+        std::fstream inputFile;
+        inputFile.open(filename);
+        std::string line;
+        while (getline(inputFile, line)) {
+            if (line.empty() || line[0] == '#') {
+                continue;
+            }
+            instructMem.push_back(GVMHelper::parseInstruction(line));
+        }
+        inputFile.close();
+    } catch(STATUS) {
+        throw STATUS::ERRORED;
+    }
     // call copy constructor
     dataMem = std::vector<long>(initialMemory);
+    gritStatus = STATUS::READY;
+    printVM(true, true);
     return gritStatus;
 }
 STATUS GritVM::run()
 {
-    printVM(true, true);
-    for (currInstruct = instructMem.begin(); currInstruct != instructMem.end(); currInstruct++)
+    for (currInstruct = instructMem.begin(); currInstruct != instructMem.end();
+    currInstruct++)
     {
-        printVM(true, false);
+        printVM(true, true);
         std::cout << GVMHelper::instructionToString(currInstruct->operation) << " | " << currInstruct->argument << std::endl;
+        evaluate(*currInstruct);
         if (gritStatus == STATUS::HALTED)
         {
             break;
         }
-        evaluate(*currInstruct);
     }
     return gritStatus;
 }
@@ -287,17 +294,4 @@ void GritVM::printVM(bool printData, bool printInstruction)
             it++;
         }
     }
-}
-
-int main(int argc, char const *argv[])
-{
-    GritVM vm;
-    long n1 = (rand() + 1) % 50;
-    std::vector<long> initialMemory = { n1 };
-    vm.load("test.gvm", initialMemory);
-    vm.printVM(true, true);
-    vm.run();
-    vm.printVM(true, true);
-
-    return 0;
 }
