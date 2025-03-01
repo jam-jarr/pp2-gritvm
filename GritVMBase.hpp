@@ -44,7 +44,7 @@ typedef struct _instruction {
   _instruction(INSTRUCTION_SET i, long arg = 0) : operation(i), argument(arg) {};
 } Instruction;
 
-class GritVMInterface {
+class GritVMHelper {
 public:
   virtual STATUS              load(const std::string filename, const std::vector<long> &initialMemory) = 0;
   virtual STATUS              run() = 0;

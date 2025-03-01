@@ -5,7 +5,7 @@
 #ifndef GRITVM
 #define GRITVM
 
-class GritVM : GritVMInterface
+class GritVM : GritVMHelper
 {
 private:
     // private members
@@ -13,9 +13,19 @@ private:
     std::list<Instruction> instructMem;
     std::list<Instruction>::iterator currInstruct;
     STATUS gritStatus;
+   
     long accumulator;
 
     // instruction methods
+    void CLEAR();
+    void AT(int X);
+    void SET(int X);
+    void INSERT(int X);
+    void ERASE(int X);
+    void ADDCONST(long const c);
+    void SUBCONST(long const c);
+    void MULCONST(long const c);
+    void DIVCONST(long const c);
     void ADDMEM(long X);
     void SUBMEM(long X);
     void MULMEM(long X);
