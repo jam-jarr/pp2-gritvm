@@ -13,9 +13,10 @@ private:
     std::list<Instruction> instructMem;
     std::list<Instruction>::iterator currInstruct;
     STATUS gritStatus;
-    long a; //accumulator
-    // Private because these functions are used only according to the string
-    // read from thr .gvm file
+   
+    long accumulator;
+
+    // instruction methods
     void CLEAR();
     void AT(int X);
     void SET(int X);
@@ -26,10 +27,21 @@ private:
     void MULCONST(long const c);
     void DIVCONST(long const c);
     void ADDMEM(long X);
+    void SUBMEM(long X);
+    void MULMEM(long X);
+    void DIVMEM(long X);
+    void JUMPREL(long jump);
+    void JUMPNZERO(long jump);
+    void NOOP();
+    void HALT();
+    void OUTPUT();
+    void CHECKMEM(long Z);
 public:
     GritVM();
-
-
+    ~GritVM();
+    virtual STATUS load(const std::string filename, const std::vector<long> &initialMemory);
+    virtual std::vector<long> GritVM::getDataMem();
+    virtual STATUS GritVM::reset();
 };
 
 #endif
