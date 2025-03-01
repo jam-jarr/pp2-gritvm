@@ -5,7 +5,7 @@
 #ifndef GRITVM
 #define GRITVM
 
-class GritVM : GritVMHelper
+class GritVM : GritVMInterface
 {
 private:
     // private members

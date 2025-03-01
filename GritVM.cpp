@@ -20,31 +20,31 @@ GritVM::~GritVM()
     instructMem.clear();
 }
 void GritVM::CLEAR() {
-    a = long(0);
+    accumulator = long(0);
 }
 void GritVM::AT(int X) {
-    a = dataMem[X];
+    accumulator = dataMem[X];
 }
 void GritVM::SET(int X) {
-    dataMem[X] = a;
+    dataMem[X] = accumulator;
 }
 void GritVM::INSERT(int X) {
-    dataMem.insert(dataMem.begin() + X,a);
+    dataMem.insert(dataMem.begin() + X, accumulator);
 }
 void GritVM::ERASE(int X) {
     dataMem.erase(dataMem.begin() + X);
 }
 void GritVM::ADDCONST(long const c) {
-    a += c;
+    accumulator += c;
 }
 void GritVM::SUBCONST(long const c) {
-    a -= c;
+    accumulator -= c;
 }
 void GritVM::MULCONST(long const c) {
-    a *= c;
+    accumulator *= c;
 }
 void GritVM::DIVCONST(long const c) {
-    a /= c;
+    accumulator /= c;
 }
 void GritVM::ADDMEM(long X)
 {
