@@ -4,11 +4,6 @@
 #include <sstream>
 #include <iterator>
 
-// TODO: Implement the operations of base class
-STATUS GritVMHelper::load(const std::string filename,
-                          const std::vector<long> &initialMemory) {
-    // ??
-}
 STATUS GritVMHelper::run() {
     // ??
 }

@@ -26,6 +26,8 @@ private:
     void MULCONST(long const c);
     void DIVCONST(long const c);
     void ADDMEM(long X);
+public:
+    GritVM();
 
 
 };

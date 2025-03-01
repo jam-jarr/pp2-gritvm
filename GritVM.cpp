@@ -3,7 +3,6 @@
 // implement instructions below
 // dont forget to add their declaration to the header file
 
-
 void GritVM::CLEAR() {
     a = long(0);
 }
