@@ -118,7 +118,7 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
     }
     inputFile.close();
     // call copy constructor
-    dataMem = std::vector(initialMemory);
+    dataMem = std::vector<long>(initialMemory);
     return gritStatus;
 }
 STATUS GritVM::run() {
@@ -132,7 +132,7 @@ STATUS GritVM::run() {
 std::vector<long> GritVM::getDataMem()
 {
     // call copy constructor
-    return std::vector(dataMem);
+    return std::vector<long>(dataMem);
 }
 
 STATUS GritVM::reset()
