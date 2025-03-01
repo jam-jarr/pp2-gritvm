@@ -6,9 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(pp2_gritvm
-        catch.hpp
+        # catch.hpp
         GritVMBase.hpp
         GritVM.cpp
         GritVM.hpp
-        PP2Test.cpp
+        # PP2Test.cpp
         GritVMBase.cpp)

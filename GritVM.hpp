@@ -13,7 +13,7 @@ private:
     std::list<Instruction> instructMem;
     std::list<Instruction>::iterator currInstruct;
     STATUS gritStatus;
-   
+
     long accumulator;
 
     // instruction methods
@@ -38,14 +38,18 @@ private:
     void CHECKMEM(long Z);
 
     // helper methods
-    void GritVM::evaluate(Instruction i);
-public:
+    void evaluate(Instruction i);
+    
+    public:
     GritVM();
     ~GritVM();
     virtual STATUS load(const std::string filename, const std::vector<long> &initialMemory);
-    virtual std::vector<long> GritVM::getDataMem();
-    virtual STATUS GritVM::reset();
-    virtual STATUS GritVM::run();
+    virtual std::vector<long> getDataMem();
+    virtual STATUS reset();
+    virtual STATUS run();
+
+    // helper methods
+    void printVM(bool printData, bool printInstruction);
 };
 
 #endif
