@@ -77,7 +77,7 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
     std::string line;
     while (getline(inputFile, line))
     {
-        GVMHelper::parseInstruction(line);
+        instructMem.push_front(GVMHelper::parseInstruction(line));
     }
     inputFile.close();
     return gritStatus;
