@@ -12,24 +12,23 @@ private:
     std::vector<long> dataMem;
     std::list<Instruction> instructMem;
     std::list<Instruction>::iterator currInstruct;
-    long accumulator;
-    GritVM();
-    ~GritVM();
-
-public:
     STATUS gritStatus;
-    // add instruction functions here
-    
-    void ADDMEM(long &a, long X);
-    void SUBMEM(long &a, long X);
-    void MULMEM(long &a, long X);
-    void DIVMEM(long &a, long X);
+    long accumulator;
+
+    // instruction methods
+    void ADDMEM(long X);
+    void SUBMEM(long X);
+    void MULMEM(long X);
+    void DIVMEM(long X);
     void JUMPREL(long jump);
     void JUMPNZERO(long jump);
     void NOOP();
     void HALT();
     void OUTPUT();
     void CHECKMEM(long Z);
+public:
+    GritVM();
+    ~GritVM();
     STATUS load(const std::string filename, const std::vector<long> &initialMemory) = 0;
 };
 

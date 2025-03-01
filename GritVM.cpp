@@ -21,24 +21,24 @@ GritVM::~GritVM()
     instructMem.clear();
 }
 
-void GritVM::ADDMEM(long &a, long X)
+void GritVM::ADDMEM(long X)
 {
-    a += dataMem[X];
+    accumulator += dataMem[X];
 }
 
-void GritVM::SUBMEM(long &a, long X)
+void GritVM::SUBMEM(long X)
 {
-    a -= dataMem[X];
+    accumulator -= dataMem[X];
 }
 
-void GritVM::MULMEM(long &a, long X)
+void GritVM::MULMEM(long X)
 {
-    a *= dataMem[X];
+    accumulator *= dataMem[X];
 }
 
-void GritVM::DIVMEM(long &a, long X)
+void GritVM::DIVMEM(long X)
 {
-    a /= dataMem[X];
+    accumulator /= dataMem[X];
 }
 
 void GritVM::JUMPREL(long jump)
