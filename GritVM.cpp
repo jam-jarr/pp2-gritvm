@@ -121,7 +121,14 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
     dataMem = std::vector(initialMemory);
     return gritStatus;
 }
+STATUS GritVM::run() {
+    for (currInstruct = instructMem.begin()
+            ; currInstruct != instructMem.end()
+            ; currInstruct++){
+        GritVM::evaluate(*currInstruct);
+    }
 
+}
 std::vector<long> GritVM::getDataMem()
 {
     // call copy constructor
@@ -153,6 +160,8 @@ void GritVM::evaluate(Instruction i) {
         case INSTRUCTION_SET::DIVMEM:    DIVMEM(i.argument); break;
         case INSTRUCTION_SET::JUMPREL:   JUMPREL(i.argument); break;
         case INSTRUCTION_SET::JUMPZERO:  JUMPNZERO(i.argument); break;
+        case INSTRUCTION_SET::OUTPUT:    OUTPUT(); break;
+        case INSTRUCTION_SET::CHECKMEM:  CHECKMEM(i.argument); break;
         case INSTRUCTION_SET::NOOP:      NOOP(); break;
         case INSTRUCTION_SET::HALT:      HALT(); break;
         default:
