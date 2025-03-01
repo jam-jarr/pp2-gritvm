@@ -36,12 +36,16 @@ private:
     void HALT();
     void OUTPUT();
     void CHECKMEM(long Z);
+
+    // helper methods
+    void GritVM::evaluate(Instruction i);
 public:
     GritVM();
     ~GritVM();
     virtual STATUS load(const std::string filename, const std::vector<long> &initialMemory);
     virtual std::vector<long> GritVM::getDataMem();
     virtual STATUS GritVM::reset();
+    virtual STATUS GritVM::run();
 };
 
 #endif
