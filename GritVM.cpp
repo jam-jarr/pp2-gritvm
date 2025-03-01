@@ -37,14 +37,20 @@ void GritVM::DIVMEM(long &a, long X)
 
 void GritVM::JUMPREL(long jump)
 {
-    currInstruct++;
+    if (jump < 0) {
+        for (long i = 0; i < -jump; i++)
+            currInstruct--;
+    } else {
+        for (long i = 0; i < jump; i++)
+            currInstruct++;
+    }
 }
 
 void GritVM::JUMPNZERO(long jump)
 {
     if (accumulator != 0)
     {
-        currInstruct++;
+        JUMPREL(jump);
     }
 }
 
