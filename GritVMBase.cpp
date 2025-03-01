@@ -4,15 +4,6 @@
 #include <sstream>
 #include <iterator>
 
-STATUS GritVMHelper::run() {
-    // ??
-}
-std::vector<long> GritVMHelper::getDataMem(){
-    // something here?
-}
-STATUS GritVMHelper::reset() {
-    // ??
-}
 std::string GVMHelper::statusToString(STATUS s) {
   switch (s) {
     case WAITING: return "WAITING";
