@@ -7,8 +7,8 @@ include_directories(.)
 
 add_executable(pp2_gritvm
         catch.hpp
-        GritVMBase.cpp
         GritVMBase.hpp
         GritVM.cpp
         GritVM.hpp
-        PP2Test.cpp)
+        PP2Test.cpp
+        GritVMBase.cpp)

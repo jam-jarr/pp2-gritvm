@@ -4,6 +4,20 @@
 #include <sstream>
 #include <iterator>
 
+// TODO: Implement the operations of base class
+STATUS GritVMHelper::load(const std::string filename,
+                          const std::vector<long> &initialMemory) {
+    // ??
+}
+STATUS GritVMHelper::run() {
+    // ??
+}
+std::vector<long> GritVMHelper::getDataMem(){
+    // something here?
+}
+STATUS GritVMHelper::reset() {
+    // ??
+}
 std::string GVMHelper::statusToString(STATUS s) {
   switch (s) {
     case WAITING: return "WAITING";
