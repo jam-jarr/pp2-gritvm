@@ -1,4 +1,4 @@
-#include "GritVMInterpreter.hpp"
+#include "GritVM.hpp"
 
 // implement instructions below
 // dont forget to add their declaration to the header file

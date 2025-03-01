@@ -16,6 +16,7 @@ private:
     long accumulator;
 public:
     // add instruction functions here
+    
     void ADDMEM(long &a, long X);
 };
 
