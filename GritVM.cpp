@@ -77,15 +77,37 @@ void GritVM::DIVMEM(long X)
 
 void GritVM::JUMPREL(long jump)
 {
+    std::cout << "Jumping by " << jump << " steps." << std::endl;
+    if (jump == 0)
+    {
+        gritStatus = STATUS::ERRORED;
+        return;
+    }
     if (jump < 0)
     {
-        for (long i = 0; i < -jump; i++)
+        // go back one more to account for while loop
+        for (long i = 0; i < -jump + 1; i++)
+        {
             currInstruct--;
+            std::cout << "jumping..." << std::endl;
+        }
     }
     else
     {
-        for (long i = 0; i < jump; i++)
+        // forward one less to account for while loop
+        for (long i = 0; i < jump - 1; i++)
+        {
             currInstruct++;
+            std::cout << "jumping..." << std::endl;
+        }
+    }
+}
+
+void GritVM::JUMPZERO(long jump)
+{
+    if (accumulator == 0)
+    {
+        JUMPREL(jump);
     }
 }
 
@@ -136,11 +158,16 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
 }
 STATUS GritVM::run()
 {
+    printVM(true, true);
     for (currInstruct = instructMem.begin(); currInstruct != instructMem.end(); currInstruct++)
     {
-        evaluate(*currInstruct);
         printVM(true, false);
-        std::cout << GVMHelper::instructionToString(currInstruct->operation) << std::endl;
+        std::cout << GVMHelper::instructionToString(currInstruct->operation) << " | " << currInstruct->argument << std::endl;
+        if (gritStatus == STATUS::HALTED)
+        {
+            break;
+        }
+        evaluate(*currInstruct);
     }
     return gritStatus;
 }
@@ -206,6 +233,9 @@ void GritVM::evaluate(Instruction i)
         JUMPREL(i.argument);
         break;
     case INSTRUCTION_SET::JUMPZERO:
+        JUMPZERO(i.argument);
+        break;
+    case INSTRUCTION_SET::JUMPNZERO:
         JUMPNZERO(i.argument);
         break;
     case INSTRUCTION_SET::OUTPUT:
@@ -262,7 +292,9 @@ void GritVM::printVM(bool printData, bool printInstruction)
 int main(int argc, char const *argv[])
 {
     GritVM vm;
-    vm.load("altseq.gvm", {15});
+    long n1 = (rand() + 1) % 50;
+    std::vector<long> initialMemory = { n1 };
+    vm.load("test.gvm", initialMemory);
     vm.printVM(true, true);
     vm.run();
     vm.printVM(true, true);

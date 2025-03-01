@@ -31,6 +31,7 @@ private:
     void MULMEM(long X);
     void DIVMEM(long X);
     void JUMPREL(long jump);
+    void JUMPZERO(long jump);
     void JUMPNZERO(long jump);
     void NOOP();
     void HALT();
