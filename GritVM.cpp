@@ -107,6 +107,15 @@ void GritVM::HALT()
     gritStatus = STATUS::HALTED;
 }
 
+void GritVM::OUTPUT()
+{
+    std::cout << accumulator << std::endl;
+}
+
+void GritVM::CHECKMEM(long X)
+{
+}
+
 STATUS GritVM::load(const std::string filename, const std::vector<long> &initialMemory)
 {
     std::fstream inputFile;
