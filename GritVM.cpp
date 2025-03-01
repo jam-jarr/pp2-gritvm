@@ -127,7 +127,7 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
         {
             continue;
         }
-        instructMem.push_front(GVMHelper::parseInstruction(line));
+        instructMem.push_back(GVMHelper::parseInstruction(line));
     }
     inputFile.close();
     // call copy constructor
@@ -139,6 +139,8 @@ STATUS GritVM::run()
     for (currInstruct = instructMem.begin(); currInstruct != instructMem.end(); currInstruct++)
     {
         evaluate(*currInstruct);
+        printVM(true, false);
+        std::cout << GVMHelper::instructionToString(currInstruct->operation) << std::endl;
     }
     return gritStatus;
 }
@@ -247,8 +249,8 @@ void GritVM::printVM(bool printData, bool printInstruction)
     {
         cout << "*** Instruction Memory ***" << endl;
         int index = 0;
-        std::list<Instruction>::reverse_iterator it = instructMem.rbegin();
-        while (it != instructMem.rend())
+        std::list<Instruction>::iterator it = instructMem.begin();
+        while (it != instructMem.end())
         {
             Instruction item = (*it);
             cout << "Instruction " << index++ << ": " << GVMHelper::instructionToString(item.operation) << " " << item.argument << endl;
@@ -262,7 +264,7 @@ int main(int argc, char const *argv[])
     GritVM vm;
     vm.load("altseq.gvm", {15});
     vm.printVM(true, true);
-    // vm.run();
+    vm.run();
     vm.printVM(true, true);
 
     return 0;
