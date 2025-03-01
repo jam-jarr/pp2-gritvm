@@ -14,10 +14,24 @@ private:
     std::list<Instruction>::iterator currInstruct;
     STATUS gritStatus;
     long accumulator;
+
+    // instruction methods
+    void ADDMEM(long X);
+    void SUBMEM(long X);
+    void MULMEM(long X);
+    void DIVMEM(long X);
+    void JUMPREL(long jump);
+    void JUMPNZERO(long jump);
+    void NOOP();
+    void HALT();
+    void OUTPUT();
+    void CHECKMEM(long Z);
 public:
-    // add instruction functions here
-    
-    void ADDMEM(long &a, long X);
+    GritVM();
+    ~GritVM();
+    virtual STATUS load(const std::string filename, const std::vector<long> &initialMemory);
+    virtual std::vector<long> GritVM::getDataMem();
+    virtual STATUS GritVM::reset();
 };
 
 #endif
