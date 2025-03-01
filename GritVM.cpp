@@ -15,6 +15,12 @@ GritVM::GritVM()
     currInstruct = instructMem.begin();
 }
 
+GritVM::~GritVM()
+{
+    dataMem.clear();
+    instructMem.clear();
+}
+
 void GritVM::ADDMEM(long &a, long X)
 {
     a += dataMem[X];
