@@ -29,7 +29,9 @@ private:
 public:
     GritVM();
     ~GritVM();
-    STATUS load(const std::string filename, const std::vector<long> &initialMemory) = 0;
+    virtual STATUS load(const std::string filename, const std::vector<long> &initialMemory);
+    virtual std::vector<long> GritVM::getDataMem();
+    virtual STATUS GritVM::reset();
 };
 
 #endif

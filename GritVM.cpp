@@ -43,10 +43,13 @@ void GritVM::DIVMEM(long X)
 
 void GritVM::JUMPREL(long jump)
 {
-    if (jump < 0) {
+    if (jump < 0)
+    {
         for (long i = 0; i < -jump; i++)
             currInstruct--;
-    } else {
+    }
+    else
+    {
         for (long i = 0; i < jump; i++)
             currInstruct++;
     }
@@ -80,5 +83,21 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
         instructMem.push_front(GVMHelper::parseInstruction(line));
     }
     inputFile.close();
+    // call copy constructor
+    dataMem = std::vector(initialMemory);
     return gritStatus;
+}
+
+std::vector<long> GritVM::getDataMem()
+{
+    // call copy constructor
+    return std::vector(dataMem);
+}
+
+STATUS GritVM::reset()
+{
+    accumulator = 0;
+    dataMem.clear();
+    instructMem.clear();
+    gritStatus = STATUS::WAITING;
 }
