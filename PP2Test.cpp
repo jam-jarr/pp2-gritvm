@@ -125,39 +125,39 @@ TEST_CASE("Project 3 Test Cases for GritVM") {
   }
 }
 
-//TEST_CASE("Project 3 Test Cases for GritVM (EXTRA CREDIT!)") {
-//  GritVM vm;
-//  std::vector<long> initialMemory;
-//  std::vector<long> outputMemory;
-//  std::vector<long> checkMemory;
-//
-////  SECTION("GritVM produces proper output for toh.gvm (The minimum steps for TOH)") {
-////    long n = (rand() + 1) % 10, n1 = (rand() + 1) % 10, n2 = (rand() + 1) % 10;
-////
-////    auto func = [](long n) -> long {
-////      return std::pow(2, n) - 1;
-////    };
-////
-////    initialMemory = { n };
-////    checkMemory = { n, func(n) };
-////    vm.load("toh.gvm", initialMemory);
-////    vm.run();
-////    REQUIRE(vm.getDataMem() == checkMemory);
-////
-////    vm.reset();
-////
-////    initialMemory = { n1 };
-////    checkMemory = { n1, func(n1) };
-////    vm.load("toh.gvm", initialMemory);
-////    vm.run();
-////    REQUIRE(vm.getDataMem() == checkMemory);
-////
-////    vm.reset();
-////
-////    initialMemory = { n2 };
-////    checkMemory = { n2, func(n2) };
-////    vm.load("toh.gvm", initialMemory);
-////    vm.run();
-////    REQUIRE(vm.getDataMem() == checkMemory);
-////  }
-//}
+TEST_CASE("Project 3 Test Cases for GritVM (EXTRA CREDIT!)") {
+  GritVM vm;
+  std::vector<long> initialMemory;
+  std::vector<long> outputMemory;
+  std::vector<long> checkMemory;
+
+  SECTION("GritVM produces proper output for toh.gvm (The minimum steps for TOH)") {
+    long n = (rand() + 1) % 10, n1 = (rand() + 1) % 10, n2 = (rand() + 1) % 10;
+
+    auto func = [](long n) -> long {
+      return std::pow(2, n) - 1;
+    };
+
+    initialMemory = { n };
+    checkMemory = { n, func(n) };
+    vm.load("toh.gvm", initialMemory);
+    vm.run();
+    REQUIRE(vm.getDataMem() == checkMemory);
+
+    vm.reset();
+
+    initialMemory = { n1 };
+    checkMemory = { n1, func(n1) };
+    vm.load("toh.gvm", initialMemory);
+    vm.run();
+    REQUIRE(vm.getDataMem() == checkMemory);
+
+    vm.reset();
+
+    initialMemory = { n2 };
+    checkMemory = { n2, func(n2) };
+    vm.load("toh.gvm", initialMemory);
+    vm.run();
+    REQUIRE(vm.getDataMem() == checkMemory);
+  }
+}
