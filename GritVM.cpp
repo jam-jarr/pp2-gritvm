@@ -1,12 +1,11 @@
+// Name: Huy Bui U82390903
+// Name: Jamie Giarratana U81686143
+// Description: Source code for compiling the GritVM programming language
 #include <fstream>
 #include <iostream>
 
 #include "GritVM.hpp"
 #include "GritVMBase.hpp" // Assuming STATUS is defined in GritVMBase.hpp
-
-// implement instructions below
-// dont forget to add their declaration to the header file
-
 GritVM::GritVM()
 {
     // constructor
@@ -23,58 +22,75 @@ void GritVM::CLEAR()
 {
     accumulator = long(0);
 }
+/// Sets the accumulator to the value at X in the data memory
 void GritVM::AT(int X)
 {
     accumulator = dataMem[X];
 }
+/// Sets the value at X in the data memory to the value in the accumulator
 void GritVM::SET(int X)
 {
     dataMem[X] = accumulator;
 }
+/// Inserts in data memory at location X the value in the accumulator
 void GritVM::INSERT(int X)
 {
     dataMem.insert(dataMem.begin() + X, accumulator);
 }
+/// Erases location X in the DM
 void GritVM::ERASE(int X)
 {
     dataMem.erase(dataMem.begin() + X);
 }
+/// Adds C to the accumulator value
+/// A = A + C
 void GritVM::ADDCONST(long const c)
 {
     accumulator += c;
 }
+/// Subtracts C from the accumulator
+/// A = A – C
 void GritVM::SUBCONST(long const c)
 {
     accumulator -= c;
 }
+///Multiplies C to the accumulator value
+///A = A * C
 void GritVM::MULCONST(long const c)
 {
     accumulator *= c;
 }
+///Divides C from the accumulator value
+///A = A / C
 void GritVM::DIVCONST(long const c)
 {
     accumulator /= c;
 }
+///Adds DM[X] to the accumulator value
+///A = A + DM[X]
 void GritVM::ADDMEM(long X)
 {
     accumulator += dataMem[X];
 }
-
+///Subtracts DM[X] from the accumulator
+///A = A – DM[X]
 void GritVM::SUBMEM(long X)
 {
     accumulator -= dataMem[X];
 }
-
+///Multiplies DM[X] to the accumulator value
+///A = A * DM[X]
 void GritVM::MULMEM(long X)
 {
     accumulator *= dataMem[X];
 }
-
+///Divides DM[X] from the accumulator value
+///A = A / DM[X]
 void GritVM::DIVMEM(long X)
 {
     accumulator /= dataMem[X];
 }
-
+///Goes forward/back Y instructions from the current instruction (can be negative)
 void GritVM::JUMPREL(long jump)
 {
     std::cout << "Jumping by " << jump << " steps." << std::endl;
@@ -102,7 +118,8 @@ void GritVM::JUMPREL(long jump)
         }
     }
 }
-
+///Goes forward/back Y instructions from the current instruction (can be negative)
+///if accumulator is 0. Otherwise just move forward 1 from the current instruction.
 void GritVM::JUMPZERO(long jump)
 {
     if (accumulator == 0)
@@ -110,7 +127,8 @@ void GritVM::JUMPZERO(long jump)
         JUMPREL(jump);
     }
 }
-
+///Goes forward/back Y instructions from the current instruction (can be negative)
+/// if accumulator is not 0. Otherwise just move forward 1 from the current instruction.
 void GritVM::JUMPNZERO(long jump)
 {
     if (accumulator != 0)
@@ -118,26 +136,31 @@ void GritVM::JUMPNZERO(long jump)
         JUMPREL(jump);
     }
 }
-
+///Perform no operation. Counts as an instruction but does nothing.
 void GritVM::NOOP()
 {
-    // do nothing
+    // Jamie: do nothing
+    // Huy: At first glance, the function seems to be "useless". However, its
+    // existence suggest otherwise
 }
-
+///Stop the GritVM and switch status to HALTED
 void GritVM::HALT()
 {
     gritStatus = STATUS::HALTED;
 }
-
+///Output accumulator to std::cout
 void GritVM::OUTPUT()
 {
     std::cout << accumulator << std::endl;
 }
-
+///Checks to make sure DM is of at least size Z. If not, switch status to ERRORED
 void GritVM::CHECKMEM(long X)
 {
+    if (dataMem.size() != int(X)){
+        gritStatus = STATUS::ERRORED;
+    }
 }
-
+/// Load instructions from .gvm file into instruction memory
 STATUS GritVM::load(const std::string filename, const std::vector<long> &initialMemory)
 {
     if (filename == ""){
@@ -163,6 +186,7 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
     printVM(true, true);
     return gritStatus;
 }
+/// Run all instructions in instruction memory
 STATUS GritVM::run()
 {
     for (currInstruct = instructMem.begin(); currInstruct != instructMem.end();
@@ -178,12 +202,13 @@ STATUS GritVM::run()
     }
     return gritStatus;
 }
+/// Return data in memory
 std::vector<long> GritVM::getDataMem()
 {
     // call copy constructor
     return std::vector<long>(dataMem);
 }
-
+/// Clear all parameters in GritVM
 STATUS GritVM::reset()
 {
     accumulator = 0;
@@ -192,7 +217,7 @@ STATUS GritVM::reset()
     gritStatus = STATUS::WAITING;
     return gritStatus;
 }
-
+/// Helper function for run
 void GritVM::evaluate(Instruction i)
 {
     switch (i.operation)
@@ -262,7 +287,7 @@ void GritVM::evaluate(Instruction i)
         return;
     }
 }
-
+/// Print debugging data to cout
 void GritVM::printVM(bool printData, bool printInstruction)
 {
     using std::cout;

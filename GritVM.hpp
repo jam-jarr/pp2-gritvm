@@ -1,3 +1,6 @@
+// Name: Huy Bui U82390903
+// Name: Jamie Giarratana U81686143
+// Description: Interface for GritVM programming language
 #include "GritVMBase.hpp"
 #include <vector>
 #include <list>
@@ -13,10 +16,9 @@ private:
     std::list<Instruction> instructMem;
     std::list<Instruction>::iterator currInstruct;
     STATUS gritStatus;
-
     long accumulator;
 
-    // instruction methods
+    // instruction methods for GritVM
     void CLEAR();
     void AT(int X);
     void SET(int X);
