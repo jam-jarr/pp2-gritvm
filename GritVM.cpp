@@ -189,6 +189,7 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
 /// Run all instructions in instruction memory
 STATUS GritVM::run()
 {
+    gritStatus = STATUS::RUNNING;
     for (currInstruct = instructMem.begin(); currInstruct != instructMem.end();
     currInstruct++)
     {
