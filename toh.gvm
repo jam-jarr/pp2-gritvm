@@ -1,0 +1,50 @@
+# Calculate the minimum number of moves for Tower of Hanoi
+# The minimum number of moves for TOH with n disks is 2^n - 1
+# So we only need to calculate 2^n - 1 and return it
+
+# Memory Layout
+# 0: n (initial mem)
+# 1: Result
+# 2: counter (used as a iterator)
+
+# Initialize Result
+CHECKMEM 1
+CLEAR
+INSERT 1
+
+# Check if n is zero
+AT 0
+JUMPNZERO 2
+HALT
+CLEAR
+
+# Initialize counter
+CHECKMEM 2
+INSERT 2
+
+# Set 2 to result
+ADDCONST 1
+SET 1
+CLEAR
+
+# Set accum to result, multiply accum by 2, set to result
+# start loop
+AT 1
+MULCONST 2
+SET 1
+
+# a = counter, a++, counter = a, (a+1) - n, jump if (a+1)-(n) =/= 0
+AT 2
+ADDCONST 1
+SET 2
+SUBMEM 0
+JUMPNZERO -7
+# end loop
+
+# remove counter, decrement result by 1
+ERASE 2
+AT 1
+SUBCONST 1
+SET 1
+
+HALT
