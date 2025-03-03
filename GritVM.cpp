@@ -104,7 +104,7 @@ void GritVM::JUMPREL(long jump)
         // go back one more to account for while loop
         for (long i = 0; i < -jump + 1; i++)
         {
-            currInstruct--;
+            --currInstruct;
             std::cout << "jumping..." << std::endl;
         }
     }
@@ -113,7 +113,7 @@ void GritVM::JUMPREL(long jump)
         // forward one less to account for while loop
         for (long i = 0; i < jump - 1; i++)
         {
-            currInstruct++;
+            ++currInstruct;
             std::cout << "jumping..." << std::endl;
         }
     }
@@ -174,7 +174,8 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
             if (line.empty() || line[0] == '#') {
                 continue;
             }
-            instructMem.push_back(GVMHelper::parseInstruction(line));
+            auto v = GVMHelper::parseInstruction(line);
+            instructMem.push_back(v);
         }
         inputFile.close();
     } catch(STATUS) {
@@ -189,8 +190,8 @@ STATUS GritVM::load(const std::string filename, const std::vector<long> &initial
 /// Run all instructions in instruction memory
 STATUS GritVM::run()
 {
-    for (currInstruct = instructMem.begin(); currInstruct != instructMem.end();
-    currInstruct++)
+    for (currInstruct = instructMem.begin(); currInstruct != instructMem.end() ;
+    ++currInstruct)
     {
         printVM(true, true);
         std::cout << GVMHelper::instructionToString(currInstruct->operation) << " | " << currInstruct->argument << std::endl;
@@ -311,12 +312,14 @@ void GritVM::printVM(bool printData, bool printInstruction)
     {
         cout << "*** Instruction Memory ***" << endl;
         int index = 0;
-        std::list<Instruction>::iterator it = instructMem.begin();
+        NodeList<Instruction>::Iterator it = instructMem.begin();
         while (it != instructMem.end())
         {
             Instruction item = (*it);
-            cout << "Instruction " << index++ << ": " << GVMHelper::instructionToString(item.operation) << " " << item.argument << endl;
-            it++;
+            cout << "Instruction " << index++ << ": " << GVMHelper::
+            instructionToString(item.operation) << " " << item.argument <<
+            endl;
+            ++it;
         }
     }
 }

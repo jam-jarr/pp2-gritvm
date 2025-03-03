@@ -13,6 +13,10 @@ add_executable(pp2_gritvm
         GritVM.cpp
         GritVM.hpp
         PP2Test.cpp
-        GritVMBase.cpp)
+        GritVMBase.cpp
+        DNode.hpp
+        DNode.cpp
+        Iterator.hpp
+        NodeList.hpp)
 
 # target_link_libraries(PP2Test Catch2::Catch2)
